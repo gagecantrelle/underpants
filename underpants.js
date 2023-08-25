@@ -20,7 +20,10 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
-
+_.identity = (value) => {
+    //return the given value
+    return value;
+}
 
 /** _.typeOf
 * Arguments:
@@ -41,7 +44,41 @@ var _ = {};
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-
+_.typeOf = (value) => {
+    //check if the value is a number 
+    if (typeof value === 'number') {
+        //return a string saying number
+        return 'number';
+        //check if the value is a string 
+    } else if (typeof value === 'string') {
+        //return a string saying string
+        return 'string';
+        //check if the value is a boolean
+    } else if (typeof value === 'boolean') {
+        //return a string saying boolean
+        return 'boolean';
+        //check if the value is a undefined    
+    } else if (typeof value === 'undefined') {
+        //return a string saying undefined
+        return 'undefined';
+        //check if the value is not defined   
+    } else if (!value) {
+        //return a string saying null
+        return 'null';
+        //check if the value is an array    
+    } else if (typeof value === 'object' && Array.isArray(value)) {
+        //return a string saying array
+        return 'array';
+        //check if the value is a object     
+    } else if (typeof value === 'object' && !Array.isArray(value)) {
+        //return a string saying object
+        return 'object';
+        //check if the value is a function
+    } else if (typeof value === 'function') {
+        //return a string saying function
+        return 'function';
+    }
+}
 
 /** _.first
 * Arguments:
@@ -60,8 +97,35 @@ var _ = {};
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
-
-
+_.first = (arr, num) => {
+    //create an empty array
+    var Narr = [];
+    //check num is defined and arr is a array
+    if (num && Array.isArray(arr)) {
+        //check if num is greater than all the values in arr   example:  5 > ['a', 'b', 'c'] = 3 values   so it 5 > 3
+        if (num > arr.length) {
+            //return Narr
+            return arr;
+            //run if num is less than arr length  
+        } else {
+            //loop through arr, using num for how many time need to loop 
+            for (let i = 0; i < num; i++) {
+                //push the current value into Narr
+                Narr.push(arr[i]);
+            }
+        }
+        //check num is defined and arr is not a array  
+    } else if (num && !Array.isArray(arr)) {
+        //return Narr
+        return Narr;
+        //run if num is not defined and if arr is a array or not
+    } else {
+        //return the first value in arr
+        return arr[0];
+    }
+    //return Narr
+    return Narr;
+}
 /** _.last
 * Arguments:
 *   1) An array
@@ -80,6 +144,37 @@ var _ = {};
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 
+_.last = (arr, num) => {
+    //create an empty array
+    var Narr = [];
+    //check num is defined and arr is a array
+    if (num && Array.isArray(arr)) {
+        //check if num is greater than all the values in arr   example:  5 > ['a', 'b', 'c'] = 3 values   so it 5 > 3
+        if (num > arr.length) {
+            //return Narr
+            return arr;
+            //run if num is less than arr length  
+        } else {
+            //loop backward through arr, using num for how many time need to loop 
+            for (let i = num; i > 0; i--) {
+                //push the current value into Narr
+                Narr.push(arr[i]);  //or use .unshift()
+            }
+            //reverse the position in the Narr array
+            Narr.reverse();
+        }
+        //check num is defined and arr is not a array
+    } else if (num && !Array.isArray(arr)) {
+        //return Narr
+        return Narr;
+        //run if num is not defined and if arr is a array or not
+    } else {
+        //return the last value in arr
+        return arr[arr.length - 1];
+    }
+    //return Narr
+    return Narr;
+}
 
 /** _.indexOf
 * Arguments:
@@ -96,7 +191,18 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
-
+_.indexOf = (arr, value) => {
+    //loop through arr
+    for (let i = 0; i < arr.length; i++) {
+        //check if the current value is equal the given value
+        if (arr[i] === value) {
+            //return the index of the current value
+            return i;
+        }
+    }
+    //return -1
+    return -1;
+}
 
 /** _.contains
 * Arguments:
@@ -112,7 +218,18 @@ var _ = {};
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
-
+_.contains = (arr, value) => {
+    //loop through arr
+    for (let i = 0; i < arr.length; i++) {
+        //check if the current value is equal the given value
+        if (arr[i] === value) {
+            //reutrn true
+            return true;
+        }
+    }
+    //return false
+    return false;
+}
 
 /** _.each
 * Arguments:
@@ -129,7 +246,23 @@ var _ = {};
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
-
+_.each = (arrobj, func) => {
+    //check if arrobj is an array
+    if (Array.isArray(arrobj)) {
+        //loop through the arrobj
+        for (let i = 0; i < arrobj.length; i++) {
+            //run the func with the current value, index, and arrobj
+            func(arrobj[i], i, arrobj);
+        }
+        //run if arrobj is not an array
+    } else {
+        //loop through the arrobj
+        for (let key in arrobj) {
+            //run the func with the current value, index, and arrobj
+            func(arrobj[key], key, arrobj);
+        }
+    }
+}
 
 /** _.unique
 * Arguments:
@@ -140,7 +273,20 @@ var _ = {};
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
+_.unique = (arr) => {
+    //create an empty array
+    var Narr = [];
+    //loop through arr
+    for (let i = 0; i < arr.length; i++) {
+        //check if the Narr contains doesn't a value that is the same as the current value in arr
+        if (_.indexOf(Narr, arr[i]) === -1) {
+            //push the current value into Narr
+            Narr.push(arr[i]);
+        }
+    }
+    //return Narr
+    return Narr;
+}
 
 /** _.filter
 * Arguments:
@@ -157,8 +303,20 @@ var _ = {};
 * Extra Credit:
 *   use _.each in your implementation
 */
-
-
+_.filter = (arr, func) => {
+    //create an empty array
+    var Narr = [];
+    //loop through arr
+    for (let i = 0; i < arr.length; i++) {
+        //check func return true when given the current value, index, and arr
+        if (func(arr[i], i, arr)) {
+            //push the current value into Narr
+            Narr.push(arr[i]);
+        }
+    }
+    //return Narr
+    return Narr;
+}
 /** _.reject
 * Arguments:
 *   1) An array
@@ -171,7 +329,20 @@ var _ = {};
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
-
+_.reject = (arr, func) => {
+    //create an empty array
+    var Narr = [];
+    //loop through arr
+    for (let i = 0; i < arr.length; i++) {
+        //check if func return false when given func the current value, index, arr
+        if (!func(arr[i], i, arr)) {
+            //push the current value into Narr
+            Narr.push(arr[i]);
+        }
+    }
+    //return Narr
+    return Narr;
+}
 
 /** _.partition
 * Arguments:
@@ -191,7 +362,29 @@ var _ = {};
 *   }); -> [[2,4],[1,3,5]]
 }
 */
-
+_.partition = (arr, func) => {
+    //create three empty array
+    var Narr = [];
+    var t = [];
+    var f = [];
+    //loop through arr
+    for (let i = 0; i < arr.length; i++) {
+        //check if the func return true when it's given the current value, index, arr
+        if (func(arr[i], i, arr)) {
+            //push the current value into the array t
+            t.push(arr[i]);
+            //run if func return false
+        } else {
+            //push the current value into the array t
+            f.push(arr[i])
+        }
+    }
+    //push both array t and f into Narr array
+    Narr.push(t);
+    Narr.push(f);
+    //return Narr
+    return Narr;
+}
 
 /** _.map
 * Arguments:
@@ -208,7 +401,27 @@ var _ = {};
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
-
+_.map = (coll, func) => {
+    //create an empty array
+    var Ncoll = []
+    //check if coll is an array
+    if (Array.isArray(coll)) {
+        //loop through coll
+        for (let i = 0; i < coll.length; i++) {
+            //push the value from the func when given func the current value in coll, it index position, and the coll it self
+            Ncoll.push(func(coll[i], i, coll));
+        }
+        //run if coll is not an array
+    } else {
+        //loop through coll
+        for (let key in coll) {
+            //push the value from the func when given func the current value in coll, it index position, and the coll it self
+            Ncoll.push(func(coll[key], key, coll));
+        }
+    }
+    //return Ncoll
+    return Ncoll;
+}
 
 /** _.pluck
 * Arguments:
@@ -220,7 +433,18 @@ var _ = {};
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
+_.pluck = (arr, value) => {
+    //return the value that map returns
+    return _.map(arr, function (cur, index, array) {
+        //check if the current has the same key name as the given value
+        if (cur[value]) {
+            //return the current key value
+            return cur[value];
+        }
 
+    })
+
+}
 
 /** _.every
 * Arguments:
@@ -242,7 +466,47 @@ var _ = {};
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+_.every = (coll, func) => {
+    //check if the function func is given
+    if (!func) {
+        //loop through the coll
+        for (let i = 0; i < coll.length; i++) {
+            //check if there a value that equal true
+            if (coll[i] === true) {
+                //return true
+                return true
+                //check if there a value that equal false
+            } else if (coll[i] === false) {
+                //return false
+                return false
+            }
 
+        }
+    }
+    //check if coll is an array
+    if (Array.isArray(coll)) {
+        //loop through the coll
+        for (let i = 0; i < coll.length; i++) {
+            //check if func return a false value when it's given the current value, index, and coll
+            if (!func(coll[i], i, coll)) {
+                //return false
+                return false
+            }
+        }
+        // runs if coll is not an array
+    } else {
+        //loop through the coll
+        for (let key in coll) {
+            //check if func return a false value when it's given the current value, index, and coll
+            if (!func(coll[key], key, coll)) {
+                //return false
+                return false
+            }
+        }
+    }
+    //return true
+    return true
+}
 
 /** _.some
 * Arguments:
@@ -265,7 +529,47 @@ var _ = {};
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+_.some = (coll, func) => {
+    //check if the function func is given
+    if (!func) {
+        //loop through the coll
+        for (let i = 0; i < coll.length; i++) {
+            //check if there a value that equal true
+            if (coll[i] === true) {
+                //return true
+                return true
+                //check if there a value that equal false
+            } else if (coll[i] === false) {
+                //return false
+                return false
+            }
 
+        }
+    }
+    //check if coll is an array
+    if (Array.isArray(coll)) {
+        //loop through the coll
+        for (let i = 0; i < coll.length; i++) {
+            //check if func return a true value when it's given the current value, index, and coll
+            if (func(coll[i], i, coll)) {
+                //return true
+                return true
+            }
+        }
+        // runs if coll is not an array
+    } else {
+        //loop through the coll
+        for (let key in coll) {
+            //check if func return a true value when it's given the current value, index, and coll
+            if (func(coll[key], key, coll)) {
+                //return true
+                return true
+            }
+        }
+    }
+    //return false
+    return false
+}
 /** _.reduce
 * Arguments:
 *   1) An array
@@ -284,7 +588,20 @@ var _ = {};
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
-
+_.reduce = (arr, func, seed) => {
+    //check if seed is not given and if it not equal to zero
+    if (!seed && seed != 0) {
+        //set seed to equal the first value in the given array arr
+        seed = arr[0];
+    }
+    //loop through arr
+    for (let i = 0; i < arr.length; i++) {
+        //set seed to equal the result of the given function func 
+        seed = func(seed, arr[i], i);
+    }
+    //return seed
+    return seed;
+}
 
 /** _.extend
 * Arguments:
@@ -300,13 +617,38 @@ var _ = {};
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+_.extend = (obj1, obj2, ...objs) => {
+    //check if there is a second given object
+    if (!obj2) {
+        //if only one object is given return that single object
+        return obj1
+    }
+    //loop through all keys in obj2 
+    for (let key in obj2) {
+        // create a new key with the same name and value of the current key in obj2 
+        obj1[key] = obj2[key];
+    }
+    //check if objs has a object or more
+    if (objs) {
+        //loop through each object in objs
+        for (let i = 0; i < objs.length; i++) {
+            //loop through all keys in the current object then 
+            for (let key in objs[i]) {
+                // create a new key with the same name and value of the current key in the current key
+                obj1[key] = objs[i][key];
+            }
 
+        }
+    }
+    //return obj1
+    return obj1
+}
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-if((typeof process !== 'undefined') &&
-   (typeof process.versions.node !== 'undefined')) {
+if ((typeof process !== 'undefined') &&
+    (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports = _;
 }
