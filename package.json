@@ -1,5 +1,5 @@
 {
-  "name": "underpants",
+  "name": "underpants-gagecantrelle",
   "version": "1.0.0",
   "private": true,
   "description": "Functional Functions for Fun",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OperationSpark/underpants.git"
+    "url": "https://github.com/gagecantrelle/underpants.git"
   },
-  "author": "jfraboni",
+  "author": "gagecantrelle",
   "license": "CC",
   "bugs": {
-    "url": "https://github.com/OperationSpark/underpants/issues"
+    "url": "https://github.com/gagecantrelle/underpants/issues"
   },
-  "homepage": "https://github.com/OperationSpark/underpants",
+  "homepage": "https://github.com/gagecantrelle/underpants",
   "devDependencies": {
     "chai": "^3.5.0",
     "istanbul": "^0.4.5",
