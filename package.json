@@ -1,9 +1,9 @@
 {
   "name": "underpants-gagecantrelle",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "Functional Functions for Fun",
-  "main": "data.js",
+  "main": "underpants.js",
   "directories": {
     "test": "test"
   },
