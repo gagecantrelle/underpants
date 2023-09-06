@@ -589,8 +589,9 @@ _.some = (coll, func) => {
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 _.reduce = (arr, func, seed) => {
+    console.log(seed);
     //check if seed is not given and if it not equal to zero
-    if (!seed && seed != 0) {
+    if (seed === undefined) {
         //set seed to equal the first value in the given array arr
         seed = arr[0];
     }
