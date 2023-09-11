@@ -594,11 +594,17 @@ _.reduce = (arr, func, seed) => {
     if (seed === undefined) {
         //set seed to equal the first value in the given array arr
         seed = arr[0];
-    }
-    //loop through arr
-    for (let i = 0; i < arr.length; i++) {
-        //set seed to equal the result of the given function func 
-        seed = func(seed, arr[i], i);
+        console.log(seed)
+        for (let i = 1; i < arr.length; i++) {
+            //set seed to equal the result of the given function func 
+            seed = func(seed, arr[i], i);
+        }
+    } else {
+        //loop through arr
+        for (let i = 0; i < arr.length; i++) {
+            //set seed to equal the result of the given function func 
+            seed = func(seed, arr[i], i);
+        }
     }
     //return seed
     return seed;

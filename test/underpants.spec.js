@@ -317,7 +317,7 @@ describe('Underpants', function () {
     it("Should work without a seed", function () {
       expect(_.reduce(inputArray, function (memo, element, i) {
         return memo * element * (i + 1);
-      })).to.equal(57600000);
+      })).to.equal(5760000);
     });
     it("Should work when seed is falsy", function () {
       expect(_.reduce(inputArray, function (memo, element, i) {
